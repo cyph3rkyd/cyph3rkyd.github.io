@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — SOC Analyst Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D1117;
+    --panel: #161B22;
+    --panel-border: #21262D;
+    --text: #E6EDF3;
+    --text-muted: #8B949E;
+    --accent: #58A6FF;
+    --status-green: #3FB950;
+    --status-amber: #D29922;
+    --mono: 'JetBrains Mono', monospace;
+    --body: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.6;
+  }
+
+  /* ===== Status bar header ===== */
+  .statusbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--panel);
+    border-bottom: 1px solid var(--panel-border);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .statusbar .left { display: flex; align-items: center; gap: 16px; }
+  .statusbar .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--status-green);
+    display: inline-block;
+    box-shadow: 0 0 6px var(--status-green);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .statusbar nav { display: flex; gap: 20px; }
+  .statusbar nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .statusbar nav a:hover { color: var(--accent); }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 100px 24px 70px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .hero .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--status-green);
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+  .hero .eyebrow::before { content: "[ "; color: var(--text-muted); }
+  .hero .eyebrow::after { content: " ]"; color: var(--text-muted); }
+  .hero h1 {
+    font-family: var(--mono);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p.tagline {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 28px;
+  }
+  .hero .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid var(--panel-border);
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--accent); color: #0D1117; border-color: var(--accent); font-weight: 600; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-secondary { color: var(--text); }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ===== Section shared ===== */
+  section { max-width: 900px; margin: 0 auto; padding: 64px 24px; border-bottom: 1px solid var(--panel-border); }
+  section:last-of-type { border-bottom: none; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--mono);
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  /* ===== About ===== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .about-text p { color: var(--text-muted); margin-bottom: 14px; }
+  .about-text strong { color: var(--text); font-weight: 600; }
+  .cert-list { font-family: var(--mono); font-size: 13px; }
+  .cert-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--panel-border);
+    color: var(--text-muted);
+  }
+  .cert-item:first-child { padding-top: 0; }
+  .cert-item .cert-name { color: var(--text); }
+  .cert-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(63, 185, 80, 0.15);
+    color: var(--status-green);
+  }
+  .cert-tag.expired { background: rgba(210, 153, 34, 0.15); color: var(--status-amber); }
+
+  /* ===== Projects (log-entry style) ===== */
+  .log-entry {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .log-entry-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .log-entry-title {
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .log-status {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(63, 185, 80, 0.12);
+    color: var(--status-green);
+    border: 1px solid rgba(63, 185, 80, 0.3);
+    white-space: nowrap;
+  }
+  .log-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .log-entry p.desc { color: var(--text-muted); margin-bottom: 14px; }
+  .tool-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tool-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--bg);
+    border: 1px solid var(--panel-border);
+    color: var(--accent);
+  }
+  .log-entry a.detail-link {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .log-entry a.detail-link:hover { text-decoration: underline; }
+
+  /* ===== Skills ===== */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+  }
+  .skill-category .skill-cat-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--status-green);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+  .skill-category ul { list-style: none; color: var(--text-muted); font-size: 14px; }
+  .skill-category li { padding: 4px 0; }
+  .skill-category li::before { content: "› "; color: var(--accent); }
+
+  /* ===== Contact ===== */
+  .contact-row {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+  .contact-row a { color: var(--accent); text-decoration: none; }
+  .contact-row a:hover { text-decoration: underline; }
+  .contact-row .label { color: var(--text-muted); margin-right: 6px; }
+
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .statusbar nav { display: none; }
+    .hero { padding: 70px 20px 50px; }
+  }
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ===== Focus visibility ===== */
+  a:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="statusbar">
+    <div class="left">
+      <span class="dot"></span>
+      <span>STATUS: OPEN_TO_WORK</span>
+    </div>
+    <nav>
+      <a href="#about">about</a>
+      <a href="#projects">case-log</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <div class="eyebrow">analyst.profile</div>
+    <h1>Your Name<br><span class="accent">SOC Analyst</span>, in training.</h1>
+    <p class="tagline">Detecting, investigating, and documenting — building real-world blue team skills one case at a time, while I work toward my first SOC role.</p>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">View case log →</a>
+      <a href="/resume.pdf" class="btn btn-secondary">Download resume</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-label">// 01</div>
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm working toward a role as a <strong>SOC analyst</strong>, focused on log analysis, threat detection, and incident documentation. I hold a <strong>CEH certification</strong> and have been building hands-on experience through self-directed labs and audits.</p>
+        <p>What draws me to blue team work is the investigative side of security — taking a pile of noisy alerts and finding the signal, then documenting it clearly enough that anyone on the team could pick up where I left off.</p>
+        <p>Currently building out hands-on projects (see case log below) while applying for analyst roles.</p>
+      </div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <span class="cert-name">CEH — Certified Ethical Hacker</span>
+          <span class="cert-tag expired">expired</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">CompTIA Security+</span>
+          <span class="cert-tag">in progress</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-label">// 02</div>
+    <h2 class="section-title">Case Log</h2>
+
+    <div class="log-entry">
+      <div class="log-entry-header">
+        <span class="log-entry-title">Personal Network &amp; Endpoint Security Audit</span>
+        <span class="log-status">DOCUMENTED</span>
+      </div>
+      <div class="log-meta">SCOPE: home network &amp; personal devices · TYPE: vulnerability assessment</div>
+      <p class="desc">Conducted a full audit of my own home network and endpoints to apply CEH methodology in a real environment. Identified misconfigurations, outdated software, and weak settings, then remediated each finding and documented before/after evidence.</p>
+      <div class="tool-tags">
+        <span class="tool-tag">Nmap</span>
+        <span class="tool-tag">OpenVAS</span>
+        <span class="tool-tag">CIS Benchmarks</span>
+      </div>
+      <a href="projects/network-audit.html" class="detail-link">Read full write-up →</a>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-entry-header">
+        <span class="log-entry-title">Home SOC Lab — Log Monitoring Setup</span>
+        <span class="log-status">DOCUMENTED</span>
+      </div>
+      <div class="log-meta">SCOPE: virtual lab environment · TYPE: detection engineering</div>
+      <p class="desc">Built a small home SOC lab to practice log collection, dashboarding, and alerting on simulated traffic.</p>
+      <div class="tool-tags">
+        <span class="tool-tag">Security Onion</span>
+        <span class="tool-tag">Elastic Stack</span>
+      </div>
+      <a href="projects/soc-lab.html" class="detail-link">Read full write-up →</a>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-entry-header">
+        <span class="log-entry-title">Incident Investigation — Phishing Simulation</span>
+        <span class="log-status">DOCUMENTED</span>
+      </div>
+      <div class="log-meta">SCOPE: simulated incident · TYPE: incident response writeup</div>
+      <p class="desc">Simulated a phishing-based compromise and walked through the full investigation: triage, evidence collection, root cause, and remediation, documented like a real case report.</p>
+      <div class="tool-tags">
+        <span class="tool-tag">MITRE ATT&amp;CK</span>
+        <span class="tool-tag">Wireshark</span>
+      </div>
+      <a href="projects/phishing-ir.html" class="detail-link">Read full write-up →</a>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-label">// 03</div>
+    <h2 class="section-title">Skills &amp; Tools</h2>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <div class="skill-cat-title">SIEM / Monitoring</div>
+        <ul>
+          <li>Splunk</li>
+          <li>Elastic Stack</li>
+          <li>Security Onion</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-title">Network &amp; Analysis</div>
+        <ul>
+          <li>Wireshark</li>
+          <li>Nmap</li>
+          <li>tcpdump</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-title">Frameworks</div>
+        <ul>
+          <li>MITRE ATT&amp;CK</li>
+          <li>NIST CSF</li>
+          <li>CIS Benchmarks</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-title">Vulnerability Tools</div>
+        <ul>
+          <li>OpenVAS</li>
+          <li>Nessus</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-label">// 04</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-row">
+      <div><span class="label">email:</span><a href="mailto:you@example.com">you@example.com</a></div>
+      <div><span class="label">linkedin:</span><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">/in/yourprofile</a></div>
+      <div><span class="label">github:</span><a href="https://github.com/yourusername" target="_blank" rel="noopener">@yourusername</a></div>
+    </div>
+  </section>
+
+  <footer>
+    last_updated: 2026-06 · built &amp; maintained by Your Name
+  </footer>
+
+</body>
+</html>
