@@ -27,6 +27,7 @@ I'm learning in public, so this repo grows as I finish things. Everything here i
 
 ---
 
+<!--
 ## 🧪 Home lab
 
 My lab runs on VMware with isolated networks:
